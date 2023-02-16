@@ -8,8 +8,7 @@ export const useBase64 = (initialValue) => {
 
         file instanceof Array && file.map(async el => {
             const base64 = await convertToBase64(el)
-            // Object.values(logo)
-            // console.log(base64)
+            console.log(base64) 	
             setLogo([...logo, base64])
         }) 
         const base64 = await convertToBase64(file);
