@@ -3,16 +3,24 @@ import { useCallback, useState } from "react";
 export const useBase64 = (initialValue) => {
     const [logo, setLogo] = useState(initialValue)
 
-    const handleCreateBase64 = useCallback(async (receivedFile) => {
-        const file = receivedFile;
+    const handleDeleteFiles = (receivedFile) => {
+      if(logo instanceof Object) {
+        const newImg = logo.filter(obj => obj !== receivedFile)
+        setLogo(newImg)
+      }
+    }
 
-        file instanceof Array && file.map(async el => {
-            const base64 = await convertToBase64(el)
-            console.log(base64) 	
-            setLogo([...logo, base64])
-        }) 
-        const base64 = await convertToBase64(file);
-        setLogo(base64);
+    const handleCreateBase64 = useCallback(async (receivedFile) => {
+        let file = receivedFile;
+        if(initialValue instanceof Object) {
+          file = Object.values(receivedFile)
+
+          let files = await Promise.all(file.map(el => convertToBase64(el)))
+          setLogo([...logo, ...files])
+        } else {
+          file = await convertToBase64(receivedFile);
+          setLogo(file)
+        }
       });
     
       const convertToBase64 = (file) => {
@@ -32,5 +40,5 @@ export const useBase64 = (initialValue) => {
         });
       };
 
-    return { handleCreateBase64, logo }
+    return { handleCreateBase64, handleDeleteFiles,logo }
 }

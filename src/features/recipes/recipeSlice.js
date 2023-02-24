@@ -6,6 +6,12 @@ const postUrl = 'http://localhost:5000/api/recipes/create';
 
 export const getAllRecipes = createAsyncThunk('recipes/getAllRecipes', async () => {
     const response = await axios.get(url)
+    console.log(response)
+    return response 
+})
+
+export const getSingleRecipe = createAsyncThunk(`recipes/getSingleRecipe`, async (id) => {
+    const response = await axios.get(`${url}/${id}`)
     return response 
 })
 
@@ -15,6 +21,7 @@ export const postRecipe = createAsyncThunk('recipes/postRecipe', async (data) =>
 })
 
 const initialState = {
+    recipe: {},
     recipes: [],
     count: 0,
     isLoading: true
@@ -48,11 +55,21 @@ const recipeSlice = createSlice({
         },
         [postRecipe.fulfilled]: (state, action) => {
             state.isLoading = false
-            state.recipes = action.payload.data
+            state.recipe = action.payload.data
         },
         [postRecipe.rejected]: (state) => {
             state.isLoading = false
         },
+        [getSingleRecipe.pending]: (state) => {
+            state.isLoading = true
+        },
+        [getSingleRecipe.fulfilled]: (state, action) => {
+            state.isLoading = false
+            state.recipe = action.payload.data
+        },
+        [getSingleRecipe.rejected]: (state) => {
+            state.isLoading = false
+        }
     }
 })
 

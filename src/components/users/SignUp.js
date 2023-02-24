@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { signupUser } from "../../features/users/userSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { TextField, Grid, Typography } from "@mui/material";
+import { TextField, Grid, Typography, Alert } from "@mui/material";
 import { useStyles } from "../../hooks/useStyles";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { useBase64 } from "../../hooks/useBase64";
+import { Button } from "@material-ui/core";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -13,6 +14,10 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState("");
   const { handleCreateBase64, logo } = useBase64("")
+
+  useEffect(() => {
+    setAvatar(logo);
+  }, [logo])
 
   const {
     signupFormField,
@@ -27,7 +32,7 @@ export default function SignUp() {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-
+  
   const handleUpload = (e) => {
     e.preventDefault();
 
@@ -50,7 +55,6 @@ export default function SignUp() {
         width: "100%",
       }}
     >
-      <form onSubmit={handleUpload}>
         <Grid container xs={12}>
           <Grid
             item
@@ -76,7 +80,6 @@ export default function SignUp() {
                 name="avatar"
                 type="file"
                 onChange={(e) => {
-                  setAvatar(e.target.files[0]);
                   handleCreateBase64(e.target.files[0]);
                 }}
               />
@@ -120,15 +123,31 @@ export default function SignUp() {
           className={submitButtonContainer}
           style={{ marginTop: 50, width: "100%" }}
         >
-          <input className={submitInput} type="submit" />
-          <div className={submitButton}>
+          {/* <div className={submitButton}>
             <Typography style={{ marginRight: 5 }} variant="subtitle">
               Submit
             </Typography>
             <ChevronRightIcon />
-          </div>
+          </div> */}
+          <Button endIcon={
+          <ChevronRightIcon />} color="primary" variant="contained" onClick={() => {
+            dispatch(signupUser({ name, email, password, avatar }))
+            console.log('hello')
+            setName('')
+            setEmail('')
+            setPassword('')
+            setAvatar('')
+          }}>
+          Submit
+          </Button>
         </div>
-      </form>
+
+        {
+          user && user.msg ? <Alert severity="error">
+          {user.msg}
+        </Alert> : null
+        }
+        
     </div>
   );
 }

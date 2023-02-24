@@ -21,7 +21,8 @@ export const theme = createTheme({
 
 export const useStyles = makeStyles((theme) => ({
     root: {
-      display: 'flex'
+      display: 'flex',
+      // height: '100%'
     },
     imageContainer: {
       background: 'linear-gradient(to bottom, #f5f5f5, #fafafa)',
@@ -33,7 +34,7 @@ export const useStyles = makeStyles((theme) => ({
       backgroundImage: 'url(./imperia.jpg)',
       backgroundRepeat: 'no-repeat',
       backgroundColor:
-        theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
       backgroundSize: 'cover',
       backgroundPosition: 'center',
     },
@@ -70,7 +71,9 @@ export const useStyles = makeStyles((theme) => ({
       width: 500
     },
     toolbar: {
-      width: '100%'
+      width: '100%',
+      height: '100%',
+      // border: '1px solid red'
     },
     navbar: {
       display: 'flex',
@@ -118,6 +121,7 @@ export const useStyles = makeStyles((theme) => ({
     fileContainerIngredients: {
       display: 'flex',
       justifyContent: 'space-between',
+      marginBottom: 10
     },
     ingredientsContainer: { 
       display: 'flex', 
@@ -183,13 +187,8 @@ export const useStyles = makeStyles((theme) => ({
       position: 'relative'
     },
     submitInput: { 
-      cursor: 'pointer',
-      position: 'absolute', 
-      width: '100%', 
-      height: '100%',
-      opacity: 0,
-      zIndex: 99
-
+     backgroundColor: '#FF7B00',
+     marginTop: 50
     },
     submitButton: {
       display: 'flex',
@@ -233,5 +232,11 @@ export const useStyles = makeStyles((theme) => ({
       borderRadius: 5000,
       width: 150,
       height: 250
+    },
+    loaderContainer: {
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      height: '90vh'
     }
   }));

@@ -1,45 +1,56 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { clearRecipes, deleteRecipe } from '../../features/recipes/recipeSlice'
 import { getAllRecipes } from '../../features/recipes/recipeSlice';
-import './styles.css';
+import { CircularProgress, Paper, Grid, Typography, Button } from '@material-ui/core';
+import { useStyles } from '../../hooks/useStyles';
+import Images from './components/Images';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function Recipes() {
   const dispatch = useDispatch()
-//   const recipes = useSelector(state => state.recipe.recipes)
+  const navigate = useNavigate()
   const {recipes, isLoading} = useSelector(state => state.recipe)
-
+  const { loaderContainer } = useStyles()
+  const { t } = useTranslation()
 useEffect(() => {
     dispatch(getAllRecipes())
 }, [])
-  return (
-    <div>
-     Until recently, the prevailing view assumed lorem ipsum was born as a nonsense text. “It's not Latin, though it looks like it, and it actually says nothing,” Before & After magazine answered a curious reader, “Its ‘words’ loosely approximate the frequency with which letters occur in English, which is why at a glance it looks pretty real.”
 
-As Cicero would put it, “Um, not so fast.”
-
-The placeholder text, beginning with the line “Lorem ipsum dolor sit amet, consectetur adipiscing elit”, looks like Latin because in its youth, centuries ago, it was Latin.
-
-Richard McClintock, a Latin scholar from Hampden-Sydney College, is credited with discovering the source behind the ubiquitous filler text. In seeing a sample of lorem ipsum, his interest was piqued by consectetur—a genuine, albeit rare, Latin word. Consulting a Latin dictionary led McClintock to a passage from De Finibus Bonorum et Malorum (“On the Extremes of Good and Evil”), a first-century B.C. text from the Roman philosopher Cicero.
-
-In particular, the garbled words of lorem ipsum bear an unmistakable resemblance to sections 1.10.32–33 of Cicero's work, with the most notable passage excerpted below:
-
-“Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.”
-A 1914 English translation by Harris Rackham reads:
-
-“Nor is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure.”
-McClintock's eye for detail certainly helped narrow the whereabouts of lorem ipsum's origin, however, the “how and when” still remain something of a mystery, with competing theories and timelines.
-        {/* {
-            recipes && 
-                recipes.map(el => {
-                return(
-                    <div className='container' key={el.id}>
-                        <h3>{el.title}</h3>
-                        <button onClick={() => dispatch(deleteRecipe(el.id))}>delete</button>
-                    </div>
-                )
-                })
-        } */}
-    </div>
-  )
+  if(!isLoading) {
+    return (
+          <Grid style={{ padding: 50 }} container xs={12} spacing={2} > 
+            {
+          recipes && recipes.data.map(recipe => {
+            return (
+              <Grid item lg={3} m={6}>
+              <Paper key={recipe.id} elevation={2} style={{ borderRadius: 10, overflow: 'hidden', marginBottom: 30 }}>
+                <Images images={recipe.image} />
+                <div style={{ padding: 20 }}>
+                  <div>
+                  <Typography variant='subtitle'>
+                  {recipe.name}
+                  </Typography>
+                  </div>
+                  <div>
+                  <Typography variant='subtitle'>
+                  Created At: {recipe.createdAt.slice(0,10)}
+                  </Typography>
+                  </div>
+                  <Button style={{ marginTop: 50, backgroundColor: '#FF7B00', color: '#FFF' }} variant='contained' onClick={() => {
+                  navigate(`Recipe/${recipe._id}`)
+                }}>
+                  {t("view_recipes")}
+                </Button>
+                </div>
+              </Paper>
+              </Grid>
+            )
+          })
+         }
+          </Grid>
+    )
+  }
+  
+  return <div className={loaderContainer}><CircularProgress style={{ color: '#FF7B00' }} /></div>
 }

@@ -5,7 +5,6 @@ import { MainListItems } from './listItems'
 
 export default function SideDrawer() {
   const { drawer, adminHeading } = useStyles()  
-  console.log(adminHeading)
 
   return (
     <Drawer 

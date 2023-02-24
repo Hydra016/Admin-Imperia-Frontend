@@ -1,0 +1,30 @@
+{
+    "add_recipe": "Pievienot recepti",
+    "all_recipes": "Visi receptes",
+    "all_users": "Visi lietotāji",
+    "requests": "pieprasījumi",
+    "logout": "Pieteikšanās",
+    "welcome": "Laipni lūdzam",
+    "view_recipes": "Apskatīt recepti",
+    "name": "Vārds",
+    "time": "Laiks minūtēs",
+    "portions": "Porcijas",
+    "description": "Apraksts",
+    "instructions": "Norādījumi",
+    "add_ingredient": "Pievienot sastāvdaļu",
+    "no_ingredients_yet": "Sastāvdaļas vēl nav pievienotas!",
+    "ingredients": "Sastāvdaļas",
+    "upload_files": "Failu augšupielāde",
+    "submit": "Iesniegt",
+    "email": "E-pasts",
+    "status": "Statuss",
+    "make_super_user": "Padarīt Superlietotāju",
+    "admin": "Administrators",
+    "super_user": "Super lietotājs",
+    "approve": "Apstiprināt",
+    "reject": "noraidīt",
+    "accept": "Pieņemt",
+    "decline": "Samazinājums"
+}
+
+
