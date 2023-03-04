@@ -5,7 +5,7 @@
     "requests": "pieprasījumi",
     "logout": "Pieteikšanās",
     "welcome": "Laipni lūdzam",
-    "view_recipes": "Apskatīt recepti",
+    "view_recipes": "Apskatīt",
     "name": "Vārds",
     "time": "Laiks minūtēs",
     "portions": "Porcijas",
@@ -24,7 +24,15 @@
     "approve": "Apstiprināt",
     "reject": "noraidīt",
     "accept": "Pieņemt",
-    "decline": "Samazinājums"
+    "decline": "Samazinājums",
+    "avatar": "Avatārs",
+    "role": "Loma",
+    "remove_admin": "noņemt",
+    "no_actions": "nekādas darbības",
+    "actions": "Darbības",
+    "total_recipes": "Receptes Kopā",
+    "my_recipes": "Mani receptes",
+    "created_at": "Izveidots pie"
 }
 
 

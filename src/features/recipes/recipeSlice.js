@@ -6,12 +6,22 @@ const postUrl = 'http://localhost:5000/api/recipes/create';
 
 export const getAllRecipes = createAsyncThunk('recipes/getAllRecipes', async () => {
     const response = await axios.get(url)
-    console.log(response)
     return response 
 })
 
 export const getSingleRecipe = createAsyncThunk(`recipes/getSingleRecipe`, async (id) => {
     const response = await axios.get(`${url}/${id}`)
+    return response 
+})
+
+export const getRecipeById = createAsyncThunk(`recipes/getRecipeById`, async (id) => {
+    const response = await axios.get(`${url}/myRecipes/${id}`)
+    return response 
+})
+
+export const deleteRecipe = createAsyncThunk(`recipes/deleteRecipe`, async (data) => {
+    const { id, userId } = data
+    const response = await axios.delete(`${url}/query?id=${id}&userId=${userId}`);
     return response 
 })
 
@@ -33,10 +43,6 @@ const recipeSlice = createSlice({
     reducers: {
         clearRecipes: (state) => {
             state.recipes = [];
-        },
-        deleteRecipe: (state, action) => {
-            const recipeId = action.payload
-            state.recipes = state.recipes.filter(recipe => recipe.id !== recipeId)
         },
     },
     extraReducers: {
@@ -69,9 +75,29 @@ const recipeSlice = createSlice({
         },
         [getSingleRecipe.rejected]: (state) => {
             state.isLoading = false
-        }
+        },
+        [getRecipeById.pending]: (state) => {
+            state.isLoading = true
+        },
+        [getRecipeById.fulfilled]: (state, action) => {
+            state.isLoading = false
+            state.recipes = action.payload.data
+        },
+        [getRecipeById.rejected]: (state) => {
+            state.isLoading = false
+        },
+        [deleteRecipe.pending]: (state) => {
+            state.isLoading = true
+        },
+        [deleteRecipe.fulfilled]: (state, action) => {
+            state.isLoading = false
+            state.recipes = action.payload.data
+        },
+        [deleteRecipe.rejected]: (state) => {
+            state.isLoading = false
+        },
     }
 })
 
-export const { clearRecipes, deleteRecipe } = recipeSlice.actions;
+export const { clearRecipes } = recipeSlice.actions;
 export default recipeSlice.reducer;

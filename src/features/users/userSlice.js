@@ -8,7 +8,7 @@ const approveUrl = 'http://localhost:5000/api/approve';
 const deleteUrl = 'http://localhost:5000/api/delete';
 
 export const loginUser = createAsyncThunk('user/loginUser', async (data) => {
-    const response = await axios.post(loginUrl, data);
+    const response = await axios.post(loginUrl, data)
     return response;
 })
 
@@ -28,9 +28,7 @@ export const approveUser = createAsyncThunk('user/approveUser', async (data) => 
 })
 
 export const deleteUser = createAsyncThunk('user/deleteUser', async (_id) => {
-    console.log(`${deleteUrl}/${_id}`)
     const response = await axios.delete(`${deleteUrl}/${_id}`);
-    console.log(response)
     return response;
 })
 

@@ -8,6 +8,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import ApprovalIcon from "@mui/icons-material/Approval";
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import { useStyles } from "../../hooks/useStyles";
@@ -41,6 +42,12 @@ export const MainListItems = () => {
             <MenuBookIcon />
           </ListItemIcon>
           <ListItemText primary={t('all_recipes')} />
+        </ListItemButton>
+        <ListItemButton onClick={() => navigate("myRecipes")}>
+          <ListItemIcon>
+            <BookmarkBorderIcon />
+          </ListItemIcon>
+          <ListItemText primary={t('my_recipes')} />
         </ListItemButton>
         {user && user.data.isSuperUser ? (
           <>

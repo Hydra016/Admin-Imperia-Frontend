@@ -16,6 +16,7 @@ import Error from "./components/Error";
 import SingleRecipe from "./components/recipes/singleRecipe";
 import AllUsers from "./components/users/AllUsers";
 import Approval from "./components/users/Approval";
+import MyRecipes from "./components/recipes/myRecipes"
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import translationEn from "./locals/en/common.json"
@@ -24,7 +25,7 @@ import translationLv from "./locals/lv/common.json"
 const App = () => {
   const user = useSelector((state) => state.user.isLoggedIn);
   const {lang} = useSelector((state) => state.common);
-
+  
   i18n.use(initReactI18next).init({
     resources: {
       en: { translation: translationEn },
@@ -72,6 +73,11 @@ const App = () => {
             <Route path="Requests" element={
               <ProtectedRoute user={user}>
                 <Approval />
+              </ProtectedRoute>
+            }/>
+            <Route path="myRecipes" element={
+              <ProtectedRoute user={user}>
+                <MyRecipes />
               </ProtectedRoute>
             }/>
             <Route />

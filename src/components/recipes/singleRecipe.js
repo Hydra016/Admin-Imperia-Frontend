@@ -4,9 +4,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getSingleRecipe } from '../../features/recipes/recipeSlice'
 import { CircularProgress } from '@material-ui/core'
 import { useStyles } from '../../hooks/useStyles'
+import _ from 'lodash';
 
 export default function SingleRecipe() {
-  const { recipes, isLoading } = useSelector(state => state.recipe);
+  const { isLoading, recipe } = useSelector(state => state.recipe);
   const dispatch = useDispatch()
   const { id } = useParams()
   const { loaderContainer } = useStyles()
@@ -15,11 +16,11 @@ export default function SingleRecipe() {
     dispatch(getSingleRecipe(id))
   }, [])
   
-  if(!isLoading) {
+  if(!isLoading && _.values(recipe).some(x => x !== _.isEmpty)) {
     return (
       <div>
         {
-          recipes && recipes.data.name
+          recipe.data.name
         }
         </div>
     )

@@ -19,6 +19,7 @@ import {
   CircularProgress,
   Button,
   Typography,
+  Avatar,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import Checkbox from "@mui/material/Checkbox";
@@ -41,16 +42,22 @@ const Approval = () => {
           <TableHead>
             <TableRow>
               <TableCell>
+                <Typography variant="subtitle1">{t("avatar")}</Typography>
+              </TableCell>
+              <TableCell>
                 <Typography variant="subtitle1">{t("name")}</Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle1">{t("email")}</Typography>
               </TableCell>
               <TableCell>
-                <Typography variant="subtitle1">{t("status")}</Typography>
+                <Typography variant="subtitle1">{t("role")}</Typography>
               </TableCell>
               <TableCell>
                 <Typography variant="subtitle1">{t("make_super_user")}</Typography>
+              </TableCell>
+              <TableCell>
+                <Typography variant="subtitle1">{t("actions")}</Typography>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -64,6 +71,11 @@ const Approval = () => {
                       key={user.name}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
+                      <TableCell>
+                        <div>
+                        <img style={{ width: 50, height: 50, borderRadius: 500,objectFit: 'cover' }} src={user.avatar} />
+                        </div>
+                      </TableCell>
                       <TableCell>
                         <Typography style={{ textTransform: 'capitalize' }} variant="subtitle1">{user.name}</Typography>
                       </TableCell>
@@ -100,6 +112,28 @@ const Approval = () => {
                           {t("approve")}
                         </Button>
                       </TableCell>
+                      {
+                        user.isAdmin && !user.isSuperUser ? <TableCell>
+                        <Button
+                          endIcon={<CancelIcon />}
+                          style={{ backgroundColor: "#FF7B00", color: "white" }}
+                          onClick={() => {
+                            dispatch(
+                              approveUser({
+                                _id: user._id,
+                                isAdmin: false,
+                              })
+                            );
+                          }}
+                          variant="contained"
+                        >
+                          {t("remove_admin")}
+                        </Button>
+                      </TableCell> :
+                      <TableCell>
+                        {t("no_actions")}
+                      </TableCell>
+                      }
                     </TableRow>
                   );
                 }

@@ -132,7 +132,6 @@ export default function SignUp() {
           <Button endIcon={
           <ChevronRightIcon />} color="primary" variant="contained" onClick={() => {
             dispatch(signupUser({ name, email, password, avatar }))
-            console.log('hello')
             setName('')
             setEmail('')
             setPassword('')

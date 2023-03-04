@@ -7,6 +7,10 @@ export const store = configureStore({
     reducer: {
         recipe: recipeReducer,
         user: userReducer,
-        common: commonReducer
-    }
+        common: commonReducer,
+    },
+    middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 })
