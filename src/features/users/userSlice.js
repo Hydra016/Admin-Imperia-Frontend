@@ -1,36 +1,39 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const users = 'http://localhost:5000/api/users';
-const loginUrl = 'http://localhost:5000/api/login';
-const signupUrl = 'http://localhost:5000/api/signup';
-const approveUrl = 'http://localhost:5000/api/approve';
-const deleteUrl = 'http://localhost:5000/api/delete';
+const root = 'http://localhost:5000/api'
 
 export const loginUser = createAsyncThunk('user/loginUser', async (data) => {
-    const response = await axios.post(loginUrl, data)
+    const response = await axios.post(`${root}/login`, data)
     return response;
 })
 
 export const signupUser = createAsyncThunk('user/signupUser', async (data) => {
-    const response = await axios.post(signupUrl, data);
+    const response = await axios.post(`${root}/signup`, data);
     return response;
 })
 
 export const getAllUsers = createAsyncThunk('user/getAllUsers', async () => {
-    const response = await axios.get(users);
+    const response = await axios.get(`${root}/users`);
     return response;
 })
 
 export const approveUser = createAsyncThunk('user/approveUser', async (data) => {
-    const response = await axios.put(approveUrl, data);
+    const response = await axios.put(`${root}/approve`, data);
     return response;
 })
 
 export const deleteUser = createAsyncThunk('user/deleteUser', async (_id) => {
-    const response = await axios.delete(`${deleteUrl}/${_id}`);
+    const response = await axios.delete(`${root}/delete/${_id}`);
     return response;
 })
+
+
+//not confirmed
+// export const getSingleUser = createAsyncThunk('user/getSingleUser', async (_id) => {
+//     const response = await axios.get(`${root}/singleUser/${_id}`);
+//     return response;
+// })
 
 const initialState = {
     user: {},

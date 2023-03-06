@@ -11,16 +11,17 @@ import SignUp from "./components/users/SignUp";
 import _ from "lodash";
 import Home from "./components/Main/Home";
 import Dashboard from "./components/Dashboard/Dashboard";
-import RecipePost from "./components/recipes/recipePost";
+import RecipePost from "./components/recipes/RecipePost";
 import Error from "./components/Error";
-import SingleRecipe from "./components/recipes/singleRecipe";
+import SingleRecipe from "./components/recipes/SingleRecipe";
 import AllUsers from "./components/users/AllUsers";
 import Approval from "./components/users/Approval";
-import MyRecipes from "./components/recipes/myRecipes"
+import MyRecipes from "./components/recipes/MyRecipes";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import translationEn from "./locals/en/common.json"
 import translationLv from "./locals/lv/common.json"
+import SingleUserRecipe from "./components/recipes/RecipesBySingleUser";
 
 const App = () => {
   const user = useSelector((state) => state.user.isLoggedIn);
@@ -78,6 +79,11 @@ const App = () => {
             <Route path="myRecipes" element={
               <ProtectedRoute user={user}>
                 <MyRecipes />
+              </ProtectedRoute>
+            }/>
+            <Route path="Recipes/:id" element={
+              <ProtectedRoute user={user}>
+                <SingleUserRecipe />
               </ProtectedRoute>
             }/>
             <Route />

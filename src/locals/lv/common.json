@@ -10,7 +10,9 @@
     "time": "Laiks minūtēs",
     "portions": "Porcijas",
     "description": "Apraksts",
-    "instructions": "Norādījumi",
+    "instructions": "Instrukcija",
+    "add_instructions": "Pievienot instrukcijas",
+    "please_add_instructions": "Lūdzu, pievienojiet norādījumus",
     "add_ingredient": "Pievienot sastāvdaļu",
     "no_ingredients_yet": "Sastāvdaļas vēl nav pievienotas!",
     "ingredients": "Sastāvdaļas",
@@ -32,7 +34,18 @@
     "actions": "Darbības",
     "total_recipes": "Receptes Kopā",
     "my_recipes": "Mani receptes",
-    "created_at": "Izveidots pie"
+    "created_at": "Izveidots par",
+    "posted_by": "Sīkāka informācija",
+    "created_by": "Izveidoja",
+    "back": "Atpakaļ",
+    "recipe_id": "Receptes Id",
+    "minutes": "minūtes",
+    "timeMinutes": "Laiks",
+    "more_recipes_by": "Vairāk recepšu",
+    "all_recipes_by": "Visi receptes pēc",
+    "recipe_delete_warning": "Vai esat pārliecināts, ka vēlaties dzēst šo recepti?",
+    "yes": "Jā",
+    "no": "Nē"
 }
 
 

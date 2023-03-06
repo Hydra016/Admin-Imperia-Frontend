@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Toolbar, AppBar, Avatar, ToggleButtonGroup, ToggleButton } from "@mui/material";
+import { Typography, Toolbar, AppBar, ToggleButtonGroup, ToggleButton, IconButton } from "@mui/material";
 import { useStyles } from "../../hooks/useStyles";
 import { useDispatch, useSelector } from "react-redux";
 import { setLang } from "../../features/common/commonSlice";
 import { useTranslation } from "react-i18next";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 export default function Navbar() {
   const { navbar } = useStyles();
@@ -41,7 +42,10 @@ export default function Navbar() {
           <ToggleButton value="lv">LV</ToggleButton>
         </ToggleButtonGroup>
 
-        <div style={{ marginLeft: 30 }}>
+        <div style={{ marginLeft: 30, display: 'flex', alignItems: 'center' }}>
+        <IconButton style={{ marginRight: 10 }}>
+          <NotificationsIcon />
+        </IconButton>
           {user && user.data.avatar ? (
             <img
               style={{ width: 50, height: 50, borderRadius: 100, objectFit: 'cover', marginTop: 6 }}
