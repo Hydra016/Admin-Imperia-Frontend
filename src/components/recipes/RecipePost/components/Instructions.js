@@ -14,7 +14,6 @@ function Instructions({ recipe, setRecipe }) {
     const inputData = [...val];
     inputData[i] = onChangeValue.target.value;
     setVal(inputData);
-    console.log(inputData)
     setRecipe({ ...recipe, instructions: inputData });
   };
 
