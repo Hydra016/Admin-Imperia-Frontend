@@ -45,7 +45,9 @@
     "all_recipes_by": "Visi receptes pēc",
     "recipe_delete_warning": "Vai esat pārliecināts, ka vēlaties dzēst šo recepti?",
     "yes": "Jā",
-    "no": "Nē"
+    "no": "Nē",
+    "make_super_user_modal_heading": "Vai esat pārliecināts, ka vēlaties padarīt šo lietotāju par superlietotāju?",
+    "reject_user": "Vai esat pārliecināts, ka vēlaties noņemt šo lietotāju?"
 }
 
 

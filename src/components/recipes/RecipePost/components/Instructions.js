@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 function Instructions({ recipe, setRecipe }) {
   const [val, setVal] = useState([]);
   const { t } = useTranslation()
-  const { ingTextFieldsContainer, noItemText, signupFormFieldInstructions, ingredientsContainer } = useStyles()
+  const { ingTextFieldsContainer, noItemText, ingredientsContainer } = useStyles()
 
   const handleIngredients = (onChangeValue, i) => {
     const inputData = [...val];

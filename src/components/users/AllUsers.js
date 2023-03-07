@@ -22,128 +22,180 @@ import {
   Avatar,
 } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import Checkbox from "@mui/material/Checkbox";
+import SuperUserModal from "../../utils.js/SuperUserModal";
 
 const Approval = () => {
   const { users, isLoading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { loaderContainer } = useStyles();
   const { t } = useTranslation();
+  const [openModal, setOpenModal] = useState({
+    modalMessage: `${t("make_super_user_modal_heading")}`,
+    modalAction: true,
+    modalState: false,
+    id: "",
+    isSuperUser: false,
+  });
+  const [modalMessage, setModalMessage] = useState();
 
   useEffect(() => {
     dispatch(getAllUsers());
   }, []);
 
-  console.log(users);
-  if(!isLoading) {
+  if (!isLoading) {
     return (
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <Typography variant="subtitle1">{t("avatar")}</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle1">{t("name")}</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle1">{t("email")}</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle1">{t("role")}</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle1">{t("make_super_user")}</Typography>
-              </TableCell>
-              <TableCell>
-                <Typography variant="subtitle1">{t("actions")}</Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {!isLoading &&
-              users &&
-              users.data.map((user) => {
-                if (user.isAdmin) {
-                  return (
-                    <TableRow
-                      key={user.name}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell>
-                        <div>
-                        <img style={{ width: 50, height: 50, borderRadius: 500,objectFit: 'cover' }} src={user.avatar} />
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <Typography style={{ textTransform: 'capitalize' }} variant="subtitle1">{user.name}</Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="subtitle1">{user.email}</Typography>
-                      </TableCell>
-                      {!user.isSuperUser ? (
+      <>
+        <SuperUserModal
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+          ModalHeading={modalMessage}
+        />
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <Typography variant="subtitle1">{t("avatar")}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="subtitle1">{t("name")}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="subtitle1">{t("email")}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="subtitle1">{t("role")}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="subtitle1">
+                    {t("make_super_user")}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="subtitle1">{t("actions")}</Typography>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {!isLoading &&
+                users &&
+                users.data.map((user) => {
+                  if (user.isAdmin) {
+                    return (
+                      <TableRow
+                        key={user.name}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
                         <TableCell>
-                          <Typography variant="subtitle1">
-                          {t("admin")}
+                          <div>
+                            <img
+                              style={{
+                                width: 50,
+                                height: 50,
+                                borderRadius: 500,
+                                objectFit: "cover",
+                              }}
+                              src={user.avatar}
+                            />
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Typography
+                            style={{ textTransform: "capitalize" }}
+                            variant="subtitle1"
+                          >
+                            {user.name}
                           </Typography>
                         </TableCell>
-                      ) : (
                         <TableCell>
                           <Typography variant="subtitle1">
-                          {t("super_user")}
+                            {user.email}
                           </Typography>
                         </TableCell>
-                      )}
-                      <TableCell>
-                        <Button
-                          endIcon={<CheckCircleIcon />}
-                          style={{ backgroundColor: "#FF7B00", color: "white" }}
-                          onClick={() => {
-                            dispatch(
-                              approveUser({
+                        {!user.isSuperUser ? (
+                          <TableCell>
+                            <Typography variant="subtitle1">
+                              {t("admin")}
+                            </Typography>
+                          </TableCell>
+                        ) : (
+                          <TableCell>
+                            <Typography variant="subtitle1">
+                              {t("super_user")}
+                            </Typography>
+                          </TableCell>
+                        )}
+                        <TableCell>
+                          <Button
+                            endIcon={<CheckCircleIcon />}
+                            style={{
+                              backgroundColor: "#FF7B00",
+                              color: "white",
+                            }}
+                            onClick={() => {
+                              setOpenModal({
+                                ...openModal,
+                                modalMessage: `${t(
+                                  "make_super_user_modal_heading"
+                                )}`,
+                                modalAction: true,
+                                modalState: true,
                                 _id: user._id,
-                                isSuperUser: true,
-                              })
-                            );
-                          }}
-                          variant="contained"
-                        >
-                          {t("approve")}
-                        </Button>
-                      </TableCell>
-                      {
-                        user.isAdmin && !user.isSuperUser ? <TableCell>
-                        <Button
-                          endIcon={<CancelIcon />}
-                          style={{ backgroundColor: "#FF7B00", color: "white" }}
-                          onClick={() => {
-                            dispatch(
-                              approveUser({
-                                _id: user._id,
-                                isAdmin: false,
-                              })
-                            );
-                          }}
-                          variant="contained"
-                        >
-                          {t("remove_admin")}
-                        </Button>
-                      </TableCell> :
-                      <TableCell>
-                        {t("no_actions")}
-                      </TableCell>
-                      }
-                    </TableRow>
-                  );
-                }
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                              });
+                            }}
+                            variant="contained"
+                          >
+                            {t("approve")}
+                          </Button>
+                        </TableCell>
+                        {user.isAdmin && !user.isSuperUser ? (
+                          <TableCell>
+                            <Button
+                              endIcon={<CancelIcon />}
+                              style={{
+                                backgroundColor: "#FF7B00",
+                                color: "white",
+                              }}
+                              onClick={() => {
+                                setOpenModal({
+                                  ...openModal,
+                                  modalMessage: `${t("reject_user")}`,
+                                  modalAction: false,
+                                  modalState: true,
+                                  _id: user._id,
+                                });
+                                // dispatch(
+                                //   approveUser({
+                                //     _id: user._id,
+                                //     isAdmin: false,
+                                //   })
+                                // );
+                              }}
+                              variant="contained"
+                            >
+                              {t("remove_admin")}
+                            </Button>
+                          </TableCell>
+                        ) : (
+                          <TableCell>{t("no_actions")}</TableCell>
+                        )}
+                      </TableRow>
+                    );
+                  }
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </>
     );
   }
-  return <div className={loaderContainer}><CircularProgress style={{ color: '#FF7B00' }} /></div>
+  return (
+    <div className={loaderContainer}>
+      <CircularProgress style={{ color: "#FF7B00" }} />
+    </div>
+  );
 };
 
 export default Approval;

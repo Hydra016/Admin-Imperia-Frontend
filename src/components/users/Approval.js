@@ -32,7 +32,6 @@ const Approval = () => {
     dispatch(getAllUsers());
   }, []);
 
-  console.log(users);
   if (!isLoading) {
     return (
       <TableContainer component={Paper}>
@@ -62,8 +61,16 @@ const Approval = () => {
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell>
-                      <div>
-                        <img style={{ width: 50, height: 50, borderRadius: 500,objectFit: 'cover' }} src={user.avatar} />
+                        <div>
+                          <img
+                            style={{
+                              width: 50,
+                              height: 50,
+                              borderRadius: 500,
+                              objectFit: "cover",
+                            }}
+                            src={user.avatar}
+                          />
                         </div>
                       </TableCell>
                       <TableCell>
