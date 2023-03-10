@@ -12,10 +12,10 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import { useStyles } from "../../hooks/useStyles";
-import { logOutUser } from "../../features/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsers } from "../../features/users/userSlice";
 import { useTranslation } from "react-i18next";
+import LogoutModal from "../../utils.js/LogoutModal";
 
 export const MainListItems = () => {
   const navigate = useNavigate();
@@ -23,12 +23,15 @@ export const MainListItems = () => {
   const dispatch = useDispatch();
   const { user, users, isLoading } = useSelector((state) => state.user);
   const { t } = useTranslation()
+  const [ openModal, setOpenModal ] = useState(false)
 
   useEffect(() => {
     dispatch(getAllUsers())
   }, [])
 
   return (
+    <>
+    <LogoutModal ModalHeading={`${t("modal_logout_text")}`} openModal={openModal} setOpenModal={setOpenModal} />
     <div className={listContainer}>
       <div>
         <ListItemButton onClick={() => navigate("Create")}>
@@ -87,8 +90,7 @@ export const MainListItems = () => {
       <div>
         <ListItemButton
           onClick={() => {
-            dispatch(logOutUser());
-            navigate("/Logout");
+            setOpenModal(true)
           }}
         >
           <ListItemIcon>
@@ -98,6 +100,7 @@ export const MainListItems = () => {
         </ListItemButton>
       </div>
     </div>
+    </>
   );
 };
 

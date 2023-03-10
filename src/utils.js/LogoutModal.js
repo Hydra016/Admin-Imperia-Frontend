@@ -6,8 +6,10 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
-import { deleteRecipe } from "../features/recipes/recipeSlice";
 import { useTranslation } from "react-i18next";
+import { logOutUser } from "../features/users/userSlice";
+import { useNavigate } from "react-router-dom";
+
 
 const style = {
   position: "absolute",
@@ -21,13 +23,14 @@ const style = {
   p: 4,
 };
 
-export default function RejectUserModal({
+export default function LogoutModal({
   openModal,
   setOpenModal,
   ModalHeading,
   ModalText,
 }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   return (
@@ -35,7 +38,7 @@ export default function RejectUserModal({
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={openModal.modalState}
+        open={openModal}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
@@ -54,19 +57,18 @@ export default function RejectUserModal({
             </Typography>
             <div style={{ marginTop: 50 }}>
               <Button
-                style={{ marginRight: 10, color: '#FFF' }}
+                style={{ marginRight: 10, color: "#FFF" }}
                 variant="contained"
                 onClick={() => {
-                  dispatch(
-                    deleteRecipe({ id: openModal.id, userId: openModal.userId })
-                  );
+                  dispatch(logOutUser());
+                  navigate("/");
                   setOpenModal(false);
                 }}
               >
                 <span style={{ textTransform: "capitalize" }}>{t("yes")}</span>
               </Button>
               <Button
-                style={{ color: '#FFF' }}
+                style={{ color: "#FFF" }}
                 variant="contained"
                 onClick={() => {
                   setOpenModal(false);

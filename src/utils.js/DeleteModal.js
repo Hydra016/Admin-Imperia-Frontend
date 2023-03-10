@@ -70,7 +70,6 @@ export default function DeleteModal({
                 variant="contained"
                 onClick={() => {
                   setOpenModal(false);
-                  console.log(openModal.modalState);
                 }}
               >
                 <span style={{ textTransform: "capitalize" }}>{t("no")}</span>

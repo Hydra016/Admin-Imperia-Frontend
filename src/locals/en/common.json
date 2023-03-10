@@ -47,5 +47,6 @@
     "yes": "Yes",
     "no": "No",
     "make_super_user_modal_heading": "Are you sure you want to make this user Super User?",
-    "reject_user": "Are you sure you want to remove this user?"
+    "reject_user": "Are you sure you want to remove this user?",
+    "modal_logout_text": "Are you sure you want to logout?"
 } 

@@ -47,7 +47,8 @@
     "yes": "Jā",
     "no": "Nē",
     "make_super_user_modal_heading": "Vai esat pārliecināts, ka vēlaties padarīt šo lietotāju par superlietotāju?",
-    "reject_user": "Vai esat pārliecināts, ka vēlaties noņemt šo lietotāju?"
+    "reject_user": "Vai esat pārliecināts, ka vēlaties noņemt šo lietotāju?",
+    "modal_logout_text": "Vai esat pārliecināts, ka vēlaties atteikties?"
 }
 
 

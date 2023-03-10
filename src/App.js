@@ -41,7 +41,6 @@ const App = () => {
     <Suspense fallback="Loading...">
       <BrowserRouter>
         <Routes>
-          <Route path="/Logout" element={<Home />} />
           <Route path='/' element={<Home />} />
           <Route path="Signup" element={<SignUp />}/>
           <Route path='/Dashboard' element={

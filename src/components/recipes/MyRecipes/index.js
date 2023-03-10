@@ -16,15 +16,19 @@ export default function Recipes() {
   useEffect(() => {
     dispatch(getRecipeById(user.data._id));
   }, []);
-  const [ openModal, setOpenModal ] = useState({
+  const [openModal, setOpenModal] = useState({
     modalState: false,
     id: "",
-    userId: ""
-  })
+    userId: "",
+  });
   if (!isLoading) {
     return (
       <>
-        <DeleteModal ModalHeading={`${t("recipe_delete_warning")}`} openModal={openModal} setOpenModal={setOpenModal}/>
+        <DeleteModal
+          ModalHeading={`${t("recipe_delete_warning")}`}
+          openModal={openModal}
+          setOpenModal={setOpenModal}
+        />
         <div style={{ padding: 20 }}>
           <span style={{ fontWeight: 600, fontSize: 25 }}>
             {t("total_recipes")}: {recipes && recipes.data.length}
@@ -34,7 +38,11 @@ export default function Recipes() {
               recipes.data.map((recipe) => {
                 return (
                   <Grid item lg={3} m={6}>
-                    <Recipe openModal={openModal} setOpenModal={setOpenModal} recipe={recipe} />
+                    <Recipe
+                      openModal={openModal}
+                      setOpenModal={setOpenModal}
+                      recipe={recipe}
+                    />
                   </Grid>
                 );
               })}
