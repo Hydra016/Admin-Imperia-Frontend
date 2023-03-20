@@ -22,6 +22,7 @@ import { initReactI18next } from "react-i18next";
 import translationEn from "./locals/en/common.json"
 import translationLv from "./locals/lv/common.json"
 import SingleUserRecipe from "./components/recipes/RecipesBySingleUser";
+import UpdateRecipe from "./components/recipes/Update Recipes";
 
 const App = () => {
   const user = useSelector((state) => state.user.isLoggedIn);
@@ -83,6 +84,11 @@ const App = () => {
             <Route path="Recipes/:id" element={
               <ProtectedRoute user={user}>
                 <SingleUserRecipe />
+              </ProtectedRoute>
+            }/>
+            <Route path="myRecipes/editRecipe/:id" element={
+              <ProtectedRoute user={user}>
+                <UpdateRecipe />
               </ProtectedRoute>
             }/>
             <Route />

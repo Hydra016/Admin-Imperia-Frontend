@@ -2,11 +2,17 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const url = 'http://localhost:5000/api/recipes';
-const postUrl = 'http://localhost:5000/api/recipes/create';
+// const postUrl = 'http://localhost:5000/api/recipes/create';
 
 export const getAllRecipes = createAsyncThunk('recipes/getAllRecipes', async () => {
     const response = await axios.get(url)
     return response 
+})
+
+export const updateRecipe = createAsyncThunk('recipes/updateRecipe', async (id, data) => {
+    const response = await axios.put(`${url}/${id}`, data)
+    console.log(response)
+    return response
 })
 
 export const getSingleRecipe = createAsyncThunk(`recipes/getSingleRecipe`, async (id) => {
@@ -26,7 +32,7 @@ export const deleteRecipe = createAsyncThunk(`recipes/deleteRecipe`, async (data
 })
 
 export const postRecipe = createAsyncThunk('recipes/postRecipe', async (data) => {
-    const response = await axios.post(postUrl, data)
+    const response = await axios.post(`${url}/create`, data)
     return response
 })
 
@@ -94,6 +100,16 @@ const recipeSlice = createSlice({
             state.recipes = action.payload.data
         },
         [deleteRecipe.rejected]: (state) => {
+            state.isLoading = false
+        },
+        [updateRecipe.pending]: (state) => {
+            state.isLoading = true
+        },
+        [updateRecipe.fulfilled]: (state, action) => {
+            state.isLoading = false
+            state.recipe = action.payload.data
+        },
+        [updateRecipe.rejected]: (state) => {
             state.isLoading = false
         },
     }

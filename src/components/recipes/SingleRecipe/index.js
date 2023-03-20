@@ -55,7 +55,7 @@ export default function SingleRecipe() {
             </div>
           </Paper>
           <div className={singleRecipeContainerSecond}>
-            <UserDetail user={user} recipe={recipe} />
+            <UserDetail recipe={recipe} />
         </div>
           </div>
           
