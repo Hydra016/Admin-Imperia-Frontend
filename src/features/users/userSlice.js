@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const root = 'http://localhost:5000/api'
+const root = 'https://admin-imperia-backend-production.up.railway.app/api'
 
 export const loginUser = createAsyncThunk('user/loginUser', async (data) => {
     const response = await axios.post(`${root}/login`, data)

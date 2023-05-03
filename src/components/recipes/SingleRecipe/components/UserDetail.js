@@ -3,13 +3,17 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useStyles } from "../../../../hooks/useStyles";
 import ChevronRightOutlinedIcon from "@mui/icons-material/ChevronRightOutlined";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { updateRecipe } from "../../../../features/recipes/recipeSlice";
 
-function UserDetail({ recipe }) {
+function UserDetail({ id, recipe, myRecipe }) {
   const { t } = useTranslation();
   const { UserDetailContainer, userDetailContent } = useStyles();
   const { users } = useSelector((state) => state.user);
+  const location = useLocation();
+  const dispatch = useDispatch();
+
   if (users.data) {
     let user = users.data.find((user) => user._id === recipe.data.userId);
     return (
@@ -47,8 +51,12 @@ function UserDetail({ recipe }) {
             </div>
           </div>
         </Paper>
-        <Link to={`/Dashboard/Recipes/${user._id}`} style={{ all: "unset" }}>
+
+        {location.pathname.includes("editRecipe") ? (
           <Button
+            // onClick={() => {
+            //   dispatch(updateRecipe(id, myRecipe))
+            // }}
             endIcon={<ChevronRightOutlinedIcon />}
             style={{
               color: "#FF7B00",
@@ -59,10 +67,27 @@ function UserDetail({ recipe }) {
             variant="outlined"
           >
             <span style={{ textTransform: "capitalize" }}>
-              {t("more_recipes_by")} {user.name}
+              {t("save_recipe")}
             </span>
           </Button>
-        </Link>
+        ) : (
+          <Link to={`/Dashboard/Recipes/${user._id}`} style={{ all: "unset" }}>
+            <Button
+              endIcon={<ChevronRightOutlinedIcon />}
+              style={{
+                color: "#FF7B00",
+                borderColor: "#FF7B00",
+                marginTop: 20,
+                width: "100%",
+              }}
+              variant="outlined"
+            >
+              <span style={{ textTransform: "capitalize" }}>
+                {t("more_recipes_by")} {user.name}
+              </span>
+            </Button>
+          </Link>
+        )}
       </>
     );
   }

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const url = 'http://localhost:5000/api/recipes';
+const url = 'https://admin-imperia-backend-production.up.railway.app/api/recipes';
 // const postUrl = 'http://localhost:5000/api/recipes/create';
 
 export const getAllRecipes = createAsyncThunk('recipes/getAllRecipes', async () => {
@@ -10,7 +10,8 @@ export const getAllRecipes = createAsyncThunk('recipes/getAllRecipes', async () 
 })
 
 export const updateRecipe = createAsyncThunk('recipes/updateRecipe', async (id, data) => {
-    const response = await axios.put(`${url}/${id}`, data)
+    console.log(data.data.data)
+    const response = await axios.put(`${url}/${id}`, data.data.data)
     console.log(response)
     return response
 })

@@ -7,7 +7,7 @@ import { IconButton, TextField } from "@material-ui/core";
 import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 
-function UpdateTimeAndPortions({ recipe, myRecipe, setMyRecipe }) {
+function UpdateTimeAndPortions({ myRecipe, setMyRecipe }) {
   const { t } = useTranslation();
   const [showTimeInput, setShowTimeInput] = useState(false);
   const [showPortionsInput, setShowPortionsInput] = useState(false);
@@ -116,7 +116,7 @@ function UpdateTimeAndPortions({ recipe, myRecipe, setMyRecipe }) {
                 type="number"
                 name="portions"
                 onChange={(e) =>
-                  setMyRecipe({ ...myRecipe, portions: e.target.value })
+                  setMyRecipe({ ...myRecipe, portions: parseInt(e.target.value) })
                 }
                 value={myRecipe.portions}
                 inputProps={{

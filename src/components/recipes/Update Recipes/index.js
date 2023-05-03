@@ -11,6 +11,7 @@ import UpdateDescription from "./components/UpdateDescription";
 import UpdateImages from "./components/UpdateImages";
 import UserDetail from "../SingleRecipe/components/UserDetail";
 import UpdateTimeAndPortions from "./components/UpdateTimeAndPortions";
+import UpdateIngredients from "./components/UpdateIngredients";
 
 function UpdateRecipe() {
   const { recipe, isLoading } = useSelector((state) => state.recipe);
@@ -30,7 +31,7 @@ function UpdateRecipe() {
     time: "",
     portions: "",
     // ingredients: [],
-    // instructions: [],
+    instructions: [],
     // image: [],
     // userId: user.data._id
   });
@@ -47,6 +48,7 @@ function UpdateRecipe() {
         time: recipe.data.time,
         portions: recipe.data.portions,
         description: recipe.data.description,
+        instructions: recipe.data.instructions,
       });
     }
   }, [recipe]);
@@ -72,6 +74,11 @@ function UpdateRecipe() {
                       setMyRecipe={setMyRecipe}
                       recipe={recipe}
                     />
+                    <UpdateIngredients
+                      recipe={recipe}
+                      myRecipe={myRecipe}
+                      setMyRecipe={setMyRecipe}
+                    />
                   </div>
                   <UpdateDescription
                     myRecipe={myRecipe}
@@ -86,7 +93,7 @@ function UpdateRecipe() {
                 />
               </Paper>
               <div className={singleRecipeContainerSecond}>
-                <UserDetail recipe={recipe} />
+                <UserDetail id={id} myRecipe={myRecipe} recipe={recipe} />
               </div>
             </div>
           </div>
